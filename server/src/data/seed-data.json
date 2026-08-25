@@ -1,0 +1,77 @@
+{
+  "team": [
+    {
+      "id": 1,
+      "name": "Ahmad Joba",
+      "role": "Computer Science Intern",
+      "bio": "Works across the stack, from API design to interface polish.",
+      "skills": ["React", "Node.js", "TypeScript", "Docker"],
+      "github": "https://github.com/ahmadjoba96",
+      "linkedin": "https://www.linkedin.com/in/ahmadjoba",
+      "cv": "#"
+    },
+    {
+      "id": 2,
+      "name": "Jana Murrar",
+      "role": "Computer Engineering Intern",
+      "bio": "Focused on data modelling, REST services and making sure things are reliable.",
+      "skills": ["Node.js", "Express", "MongoDB"],
+      "github": "https://github.com/janamurrar",
+      "linkedin": "https://www.linkedin.com/in/jana-murrar-/",
+      "cv": "#"
+    },
+    {
+      "id": 3,
+      "name": "Dina Al-badarin",
+      "role": "Computer Engineering Intern",
+      "bio": "Builds accessible, responsive interfaces and cares about design systems.",
+      "skills": ["React", "MUI", "CSS"],
+      "github": "https://github.com/Dina1A",
+      "linkedin": "https://www.linkedin.com/in/dina-albadarin-0a74392b5/",
+      "cv": "#"
+    },
+    {
+      "id": 4,
+      "name": "Ameed Al-sharif",
+      "role": "Computer Engineering Intern",
+      "bio": "Interested in tooling, automation and testing.",
+      "skills": ["Docker", "CI/CD", "Testing"],
+      "github": "https://github.com/3meedwadah",
+      "linkedin": "#",
+      "cv": "#"
+    }
+  ],
+  "projects": [
+    {
+      "id": 1,
+      "name": "AHL Logics Team Portfolio",
+      "description": "Our main collaborative project at AHL Logics — built end to end by the four of us. Implements full CI/CD pipeline and Dockerization.",
+      "techStack": [
+        "React",
+        "TypeScript",
+        "MUI",
+        "Node.js",
+        "Express",
+        "Docker",
+        "GitHub Actions"
+      ],
+      "githubUrl": "https://github.com/ahmadjoba96/AHL-Internship-Team-Group2-Portfolio"
+    }
+  ],
+  "sessions": [
+    {
+      "id": 1,
+      "name": "SESSION 1 - Introduction to the internship",
+      "date": "June 16, 2026",
+      "category": "General",
+      "topics": ["Orientation", "Expectations"]
+    },
+    {
+      "id": 2,
+      "name": "SESSION 8 - Git and Github",
+      "date": "July 2, 2026",
+      "category": "DevOps",
+      "topics": ["Git", "GitHub", "Branching", "PRs"]
+    }
+  ]
+}

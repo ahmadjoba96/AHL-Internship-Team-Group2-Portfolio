@@ -1,122 +1,67 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
+/**
+ * PURPOSE: The main Application layout and composition root.
+ * WHY WE CREATED IT: To assemble all the sections of our Single Page Application.
+ *
+ * WHAT TO PUT HERE:
+ * 1. ThemeProvider to handle Light/Dark mode state.
+ * 2. The Navbar (fixed at the top).
+ * 3. All the individual sections (Hero, Team, etc.) stacked vertically.
+ * 4. The Footer.
+ */
+
+import { useState, useMemo } from "react";
+import { ThemeProvider } from "@mui/material/styles";
+import { getTheme } from "./theme/theme";
+import Box from "@mui/material/Box";
+
+// Import our sections (to be implemented)
+import TopNavbar from "./components/TopNavbar";
+import HeroSection from "./sections/HeroSection";
+import TeamProjectSection from "./sections/TeamProjectSection";
+import WhatWeLearnedSection from "./sections/WhatWeLearnedSection";
+import InternshipSection from "./sections/InternshipSection";
+import TeamSection from "./sections/TeamSection";
+import Footer from "./components/Footer";
+import DarkGradientBg from "./components/DarkGradientBg";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [mode, setMode] = useState<"light" | "dark">("dark");
+
+  // Memoize theme to avoid unnecessary recalculations
+  const theme = useMemo(() => getTheme(mode), [mode]);
+
+  const toggleTheme = () => {
+    setMode((prevMode) => (prevMode === "light" ? "dark" : "light"));
+  };
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.tsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
+    <ThemeProvider theme={theme}>
+      <DarkGradientBg mode={mode}>
+        {/* Box with background color tied to theme */}
+        <Box
+          sx={{
+            bgcolor: mode === "dark" ? "transparent" : "background.default",
+            color: "text.primary",
+            minHeight: "100vh",
+          }}
         >
-          Count is {count}
-        </button>
-      </section>
+          {/* Top navigation with logo, animated links, and theme toggle */}
+          <TopNavbar mode={mode} toggleTheme={toggleTheme} />
 
-      <div className="ticks"></div>
+          {/* Main Content Sections */}
+          <main>
+            <HeroSection />
+            <TeamProjectSection />
+            <WhatWeLearnedSection />
+            <InternshipSection />
+            <TeamSection />
+          </main>
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
-  )
+          <Footer />
+        </Box>
+      </DarkGradientBg>
+    </ThemeProvider>
+  );
 }
 
-export default App
+export default App;
