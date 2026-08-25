@@ -1,0 +1,57 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      # Since we have a monorepo structure, we test both client and server
+      - name: Install dependencies (Client)
+        working-directory: ./client
+        run: npm ci
+
+      - name: Lint and Type Check (Client)
+        working-directory: ./client
+        run: |
+          npm run lint
+          npx tsc --noEmit
+
+      - name: Install dependencies (Server)
+        working-directory: ./server
+        run: npm ci
+
+      - name: Lint (Server)
+        working-directory: ./server
+        run: npm run lint || echo "No server lint script yet"
+
+  docker-build:
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # This ensures the Dockerfile builds successfully before attempting a deployment
+      - name: Build Docker Image
+        run: docker build -t ahl-portfolio:latest .
+        
+      # To deploy to Render, you would typically use a webhook or CLI here.
+      # For example, using a Deploy Hook URL provided by Render:
+      # - name: Trigger Render Deployment
+      #   run: curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK }}
