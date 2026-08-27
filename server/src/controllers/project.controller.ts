@@ -1,12 +1,12 @@
-/**
- * controllers/project.controller.ts
- * ----------------------------------------------------------------------------
- * Returns the single shared Team Project from data/content.ts.
- */
-
 import type { Request, Response } from "express";
-import { teamProject } from "../data/content";
+import { readSeedData } from "../data/seedData";
 
 export function getTeamProject(_req: Request, res: Response) {
-  res.json(teamProject);
+  try {
+    const data = readSeedData();
+    res.json(data.teamProject);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Failed to read project data" });
+  }
 }
