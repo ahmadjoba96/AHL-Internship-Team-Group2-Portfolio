@@ -19,8 +19,9 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
+          cache: 'npm'
+          cache-dependency-path: '**/package-lock.json'
 
-      # Since we have a monorepo structure, we test both client and server
       - name: Install dependencies (Client)
         working-directory: ./client
         run: npm ci
@@ -39,7 +40,7 @@ jobs:
         working-directory: ./server
         run: npm run lint || echo "No server lint script yet"
 
-  docker-build:
+  docker-build-and-deploy:
     needs: build-and-test
     runs-on: ubuntu-latest
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
@@ -47,11 +48,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # This ensures the Dockerfile builds successfully before attempting a deployment
       - name: Build Docker Image
         run: docker build -t ahl-portfolio:latest .
         
-      # To deploy to Render, you would typically use a webhook or CLI here.
-      # For example, using a Deploy Hook URL provided by Render:
-      # - name: Trigger Render Deployment
-      #   run: curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK }}
+      - name: Trigger Render Deployment
+        run: |
+          if [ -n "${{ secrets.RENDER_DEPLOY_HOOK }}" ]; then
+            curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK }}
+            echo "Deployment triggered successfully!"
+          else
+            echo "RENDER_DEPLOY_HOOK secret not set. Skipping deployment."
+          fi
