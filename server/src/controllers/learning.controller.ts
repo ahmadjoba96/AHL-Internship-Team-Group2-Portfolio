@@ -1,7 +1,11 @@
-import type { Request, Response } from "express";
+import type { Request, Response, NextFunction } from "express";
 import { readSeedData } from "../data/seedData";
 
-export function getAllTrainingSessions(_req: Request, res: Response) {
+export function getAllTrainingSessions(
+  _req: Request,
+  res: Response,
+  next: NextFunction,
+) {
   try {
     const data = readSeedData();
     const sorted = [...data.trainingSessions].sort(
@@ -9,7 +13,6 @@ export function getAllTrainingSessions(_req: Request, res: Response) {
     );
     res.json(sorted);
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Failed to read training session data" });
+    next(error);
   }
 }

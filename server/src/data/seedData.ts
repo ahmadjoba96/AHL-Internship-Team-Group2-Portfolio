@@ -16,8 +16,10 @@ export interface SeedData {
   internshipOverview: InternshipOverview;
 }
 
+const dataPath = path.join(__dirname, "seed-data.json");
+const rawData = fs.readFileSync(dataPath, "utf-8");
+const seedData = JSON.parse(rawData) as SeedData;
+
 export function readSeedData(): SeedData {
-  const dataPath = path.join(__dirname, "seed-data.json");
-  const rawData = fs.readFileSync(dataPath, "utf-8");
-  return JSON.parse(rawData) as SeedData;
+  return seedData;
 }

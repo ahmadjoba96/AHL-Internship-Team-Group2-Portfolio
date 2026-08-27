@@ -1,13 +1,15 @@
-import type { Request, Response } from "express";
+import type { Request, Response, NextFunction } from "express";
 import { readSeedData } from "../data/seedData";
 
-export function getAllTeamMembers(_req: Request, res: Response) {
+export function getAllTeamMembers(
+  _req: Request,
+  res: Response,
+  next: NextFunction,
+) {
   try {
     const data = readSeedData();
     res.json(data.teamMembers);
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Failed to read team data" });
+    next(error);
   }
 }
-
