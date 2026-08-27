@@ -31,7 +31,8 @@ const TeamSection: React.FC = () => {
   const [team, setTeam] = useState<TeamMember[]>([]);
 
   useEffect(() => {
-    fetch(`${import.meta.env.VITE_API_URL || "http://localhost:3000"}/api/team`)
+    const apiUrl = import.meta.env.PROD ? "" : "http://localhost:3000";
+    fetch(`${apiUrl}/api/team`)
       .then((res) => res.json())
       .then((data) => setTeam(data))
       .catch((err) => console.error("Failed to fetch team", err));
