@@ -10,6 +10,7 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import App from "./App.tsx";
+import "./global.css";
 
 // We import a minimal reset to ensure consistent cross-browser baseline
 import CssBaseline from "@mui/material/CssBaseline";

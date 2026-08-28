@@ -1,36 +1,69 @@
-/**
- * PURPOSE: The global Footer.
- * WHY WE CREATED IT: To provide a consistent bottom section with copyright and global links.
- *
- * WHAT TO PUT HERE:
- * - Copyright text (e.g., "© 2026 AHL Logics Group 2").
- * - Contact links or general company links.
- */
-
 import React from "react";
-import { Box, Typography, Container, Link } from "@mui/material";
+import { Box, Typography, Container } from "@mui/material";
+import { motion } from "framer-motion";
 
 const Footer: React.FC = () => {
   return (
-    <Box
-      component="footer"
-      sx={{
-        py: 4,
-        bgcolor: "background.paper",
-        borderTop: "1px solid",
-        borderColor: "divider",
-      }}
+    <motion.footer
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
     >
-      <Container maxWidth="lg">
-        <Typography variant="body2" color="text.secondary" align="center">
-          {"© "}
-          {new Date().getFullYear()} AHL Logics Group 2 Portfolio.{" "}
-          <Link color="inherit" href="https://ahllogics.com/" target="_blank">
-            ahllogics.com
-          </Link>
-        </Typography>
-      </Container>
-    </Box>
+      <Box
+        sx={{
+          mt: 8,
+          py: { xs: 6, md: 7 },
+          borderTop: "1px solid",
+          borderColor: "divider",
+          bgcolor: "background.paper",
+          textAlign: "center",
+        }}
+      >
+        <Container maxWidth="md">
+          <Typography
+            variant="h4"
+            sx={{
+              fontWeight: 800,
+              mb: 1.5,
+              letterSpacing: "-0.02em",
+            }}
+          >
+            Built together. Learned together.{" "}
+            <Box component="span" sx={{ color: "primary.main" }}>
+              Grew together.
+            </Box>
+          </Typography>
+
+          <Typography
+            variant="body1"
+            color="text.secondary"
+            sx={{
+              maxWidth: 550,
+              mx: "auto",
+              lineHeight: 1.7,
+            }}
+          >
+            A shared journey by AHL Logics Group 2.
+          </Typography>
+
+          <Box
+            sx={{
+              width: 45,
+              height: 3,
+              bgcolor: "primary.main",
+              borderRadius: 10,
+              mx: "auto",
+              my: 4,
+            }}
+          />
+
+          <Typography variant="body2" color="text.secondary">
+            © {new Date().getFullYear()} AHL Logics Group 2
+          </Typography>
+        </Container>
+      </Box>
+    </motion.footer>
   );
 };
 
