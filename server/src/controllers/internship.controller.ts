@@ -1,13 +1,15 @@
-/**
- * controllers/internship.controller.ts
- * ----------------------------------------------------------------------------
- * Returns the internship overview (program info + milestones) from
- * data/content.ts.
- */
+import type { Request, Response, NextFunction } from "express";
+import { readSeedData } from "../data/seedData";
 
-import type { Request, Response } from "express";
-import { internshipOverview } from "../data/content";
-
-export function getInternshipOverview(_req: Request, res: Response) {
-  res.json(internshipOverview);
+export function getInternshipOverview(
+  _req: Request,
+  res: Response,
+  next: NextFunction,
+) {
+  try {
+    const data = readSeedData();
+    res.json(data.internshipOverview);
+  } catch (error) {
+    next(error);
+  }
 }

@@ -1,15 +1,18 @@
-/**
- * controllers/learning.controller.ts
- * ----------------------------------------------------------------------------
- * Returns all training sessions from data/content.ts.
- *
- * TODO: decide here (and note the decision in the route file's comment)
- * whether sorting by date happens on this side or on the frontend.
- */
+import type { Request, Response, NextFunction } from "express";
+import { readSeedData } from "../data/seedData";
 
-import type { Request, Response } from "express";
-import { trainingSessions } from "../data/content";
-
-export function getAllTrainingSessions(_req: Request, res: Response) {
-  res.json(trainingSessions);
+export function getAllTrainingSessions(
+  _req: Request,
+  res: Response,
+  next: NextFunction,
+) {
+  try {
+    const data = readSeedData();
+    const sorted = [...data.trainingSessions].sort(
+      (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime(),
+    );
+    res.json(sorted);
+  } catch (error) {
+    next(error);
+  }
 }

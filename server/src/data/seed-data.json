@@ -8,7 +8,7 @@
       "skills": ["React", "Node.js", "TypeScript", "Docker"],
       "github": "https://github.com/ahmadjoba96",
       "linkedin": "https://www.linkedin.com/in/ahmadjoba",
-      "cv": "#"
+      "cv": "https://docs.google.com/document/d/1hD8tZ963FP_IEvgBgPQJSmTvl9jsJUtloBWQBvR4wyk/edit?usp=sharing"
     },
     {
       "id": 2,
@@ -73,5 +73,130 @@
       "category": "DevOps",
       "topics": ["Git", "GitHub", "Branching", "PRs"]
     }
-  ]
+  ],
+
+  "_comment_new_system": "The keys below (teamMembers, techTags, trainingSessions, teamProject, internshipOverview) power the NEW typed API routes (team.routes.ts, project.routes.ts, internship.routes.ts, learning.routes.ts), mounted temporarily under /api/v2/*. The keys above (team, projects, sessions) are the LEGACY shape still used by the currently-live frontend fetch calls and must not be renamed or removed until Ahmad finishes migrating the frontend (Branch 4) — see team discussion. Once that migration is done, delete dataController.ts, routes/api.ts, and the legacy keys above, then drop the /v2 prefix from the new routes.",
+
+  "teamMembers": [
+    {
+      "id": "ahmad-joba",
+      "name": "Ahmad Joba",
+      "role": "Computer Science Intern",
+      "bio": "Works across the stack, from API design to interface polish.",
+      "skills": ["React", "Node.js", "TypeScript", "Docker"],
+      "githubUrl": "https://github.com/ahmadjoba96",
+      "linkedinUrl": "https://www.linkedin.com/in/ahmadjoba",
+      "cvUrl": "https://docs.google.com/document/d/1hD8tZ963FP_IEvgBgPQJSmTvl9jsJUtloBWQBvR4wyk/edit?usp=sharing"
+    },
+    {
+      "id": "jana-murrar",
+      "name": "Jana Murrar",
+      "role": "Computer Engineering Intern",
+      "bio": "Focused on data modelling, REST services and making sure things are reliable.",
+      "skills": ["Node.js", "Express", "MongoDB"],
+      "githubUrl": "https://github.com/janamurrar",
+      "linkedinUrl": "https://www.linkedin.com/in/jana-murrar-/",
+      "cvUrl": ""
+    },
+    {
+      "id": "dina-albadarin",
+      "name": "Dina Al-badarin",
+      "role": "Computer Engineering Intern",
+      "bio": "Builds accessible, responsive interfaces and cares about design systems.",
+      "skills": ["React", "MUI", "CSS"],
+      "githubUrl": "https://github.com/Dina1A",
+      "linkedinUrl": "https://www.linkedin.com/in/dina-albadarin-0a74392b5/",
+      "cvUrl": ""
+    },
+    {
+      "id": "ameed-sharif",
+      "name": "Ameed Al-sharif",
+      "role": "Computer Engineering Intern",
+      "bio": "Interested in tooling, automation and testing.",
+      "skills": ["Docker", "CI/CD", "Testing"],
+      "githubUrl": "https://github.com/3meedwadah",
+      "linkedinUrl": "",
+      "cvUrl": ""
+    }
+  ],
+
+  "techTags": [
+    { "name": "React", "category": "frontend" },
+    { "name": "TypeScript", "category": "frontend" },
+    { "name": "MUI", "category": "frontend" },
+    { "name": "Node.js", "category": "backend" },
+    { "name": "Express", "category": "backend" },
+    { "name": "MongoDB", "category": "backend" },
+    { "name": "Docker", "category": "devops" },
+    { "name": "GitHub Actions", "category": "devops" },
+    { "name": "Git", "category": "tool" },
+    { "name": "Agile/Scrum", "category": "methodology" }
+  ],
+
+  "trainingSessions": [
+    {
+      "id": "session-1",
+      "name": "Introduction to the Internship",
+      "date": "2026-06-16",
+      "category": "general",
+      "topics": ["Orientation", "Expectations"],
+      "whatWeLearned": "Got an overview of the internship structure, team roles, and what would be expected of us over the coming months.",
+      "mentor": ""
+    },
+    {
+      "id": "session-8",
+      "name": "Git and GitHub",
+      "date": "2026-07-02",
+      "category": "devops",
+      "topics": ["Git", "GitHub", "Branching", "Pull Requests"],
+      "whatWeLearned": "Practiced branching strategies, writing clear commit messages, and running a full PR review cycle as a team.",
+      "mentor": ""
+    }
+  ],
+
+  "teamProject": {
+    "id": "internship-hub",
+    "name": "AHL Logics Team Portfolio",
+    "description": "Our main collaborative project at AHL Logics — built end to end by the four of us. Implements a full CI/CD pipeline and Dockerization.",
+    "ourContribution": "",
+    "techStack": [
+      "React",
+      "TypeScript",
+      "MUI",
+      "Node.js",
+      "Express",
+      "Docker",
+      "GitHub Actions"
+    ],
+    "githubUrl": "https://github.com/ahmadjoba96/AHL-Internship-Team-Group2-Portfolio",
+    "liveUrl": "",
+    "screenshotUrls": [],
+    "memberIds": ["ahmad-joba", "jana-murrar", "dina-albadarin", "ameed-sharif"]
+  },
+
+  "internshipOverview": {
+    "programName": "AHL Logics Internship Program",
+    "startDate": "2026-06-16",
+    "endDate": "",
+    "milestones": [
+      {
+        "id": "milestone-1",
+        "periodLabel": "Week 1-2",
+        "title": "Onboarding & Foundations",
+        "description": "Orientation, team formation, and introduction to the tools and workflows used at AHL Logics."
+      },
+      {
+        "id": "milestone-2",
+        "periodLabel": "Week 3-6",
+        "title": "Core Training",
+        "description": "Deep-dive sessions across frontend, backend, and DevOps topics, including Git/GitHub workflows."
+      },
+      {
+        "id": "milestone-3",
+        "periodLabel": "Week 7+",
+        "title": "Team Project",
+        "description": "Applied everything learned to build and ship the team's real, production-oriented project."
+      }
+    ]
+  }
 }
