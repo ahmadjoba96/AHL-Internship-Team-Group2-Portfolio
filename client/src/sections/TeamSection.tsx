@@ -1,73 +1,233 @@
-/**
- * PURPOSE: Display the team member profiles.
- * WHY WE CREATED IT: To introduce Ahmad, Jana, Dina, and Ameed, including their roles, skills, and links.
- *
- * WHAT KIND OF DATA SHOULD BE DISPLAYED:
- * - Cards for each member containing name, role, bio, skill tags, and social links (GitHub/LinkedIn).
- *
- * WHAT INFO/PROPS YOU NEED:
- * You should fetch the team data from the backend API (`/api/team`).
- *
- * EXPECTED BEHAVIOR:
- * The data should be fetched and mapped to `TeamMemberCard` components (you can create that component
- * inside src/components/TeamMemberCard.tsx to keep things modular).
- */
-
 import React, { useEffect, useState } from "react";
-import { Container, Typography, Box } from "@mui/material";
+import {
+  Avatar,
+  Box,
+  Button,
+  Card,
+  CardContent,
+  CircularProgress,
+  Container,
+  Grid,
+  Link,
+  Typography,
+} from "@mui/material";
+import GitHubIcon from "@mui/icons-material/GitHub";
+import LinkedInIcon from "@mui/icons-material/LinkedIn";
+import DescriptionIcon from "@mui/icons-material/Description";
 
 interface TeamMember {
-  id: number;
+  id: number | string;
   name: string;
   role: string;
   bio: string;
   skills: string[];
-  github: string;
-  linkedin: string;
-  cv: string;
+  github?: string;
+  linkedin?: string;
+  cv?: string;
 }
 
 const TeamSection: React.FC = () => {
   const [team, setTeam] = useState<TeamMember[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
-    const apiUrl = import.meta.env.PROD ? "" : "http://localhost:3000";
+    const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:3000";
+
     fetch(`${apiUrl}/api/team`)
-      .then((res) => res.json())
-      .then((data) => setTeam(data))
-      .catch((err) => console.error("Failed to fetch team", err));
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("Failed to fetch team");
+        }
+        return res.json();
+      })
+      .then((data) => {
+        setTeam(data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error("Failed to fetch team", err);
+        setError(true);
+        setLoading(false);
+      });
   }, []);
 
   return (
-    <Box id="team" sx={{ py: 8 }}>
+    <Box id="team" sx={{ py: { xs: 8, md: 12 } }}>
       <Container maxWidth="lg">
-        <Typography variant="h4" gutterBottom>
+        <Typography
+          variant="overline"
+          sx={{ fontWeight: 700, letterSpacing: 2 }}
+        >
           04 / THE TEAM
         </Typography>
-        <Box sx={{ mt: 2, display: "flex", flexWrap: "wrap", gap: 4 }}>
-          {/* TODO: Map through `team` array and render Member Cards */}
-          {team.length > 0 ? (
-            team.map((member) => (
-              <Box
-                key={member.id}
+
+        <Typography
+          variant="h2"
+          sx={{
+            mt: 1,
+            mb: 5,
+            fontSize: { xs: "2.2rem", md: "4rem" },
+            fontWeight: 700,
+          }}
+        >
+          Meet The Team
+        </Typography>
+
+        {loading && (
+          <Box sx={{ display: "flex", justifyContent: "center", py: 6 }}>
+            <CircularProgress />
+          </Box>
+        )}
+
+        {error && (
+          <Typography color="error">
+            Unable to load team members.
+          </Typography>
+        )}
+
+        {!loading && !error && team.length === 0 && (
+          <Typography color="text.secondary">
+            No team members available yet.
+          </Typography>
+        )}
+
+        <Grid container spacing={3}>
+          {team.map((member) => (
+            <Grid key={member.id} size={{ xs: 12, sm: 6, md: 3 }}>
+              <Card
+                elevation={0}
                 sx={{
-                  flex: "1 1 200px",
-                  p: 2,
+                  height: "100%",
                   border: "1px solid",
                   borderColor: "divider",
-                  borderRadius: 2,
+                  borderRadius: 3,
+                  display: "flex",
+                  flexDirection: "column",
                 }}
               >
-                <Typography variant="h6">{member.name}</Typography>
-                <Typography variant="body2" color="text.secondary">
-                  {member.role}
-                </Typography>
-              </Box>
-            ))
-          ) : (
-            <Typography>Loading team...</Typography>
-          )}
-        </Box>
+                <CardContent
+                  sx={{
+                    p: 3,
+                    display: "flex",
+                    flexDirection: "column",
+                    height: "100%",
+                  }}
+                >
+                  <Avatar
+                    sx={{
+                      width: 72,
+                      height: 72,
+                      mb: 2,
+                      fontSize: "1.5rem",
+                    }}
+                  >
+                    {member.name.charAt(0)}
+                  </Avatar>
+
+                  <Typography
+                    variant="h6"
+                    sx={{ fontWeight: 700 }}
+                  >
+                    {member.name}
+                  </Typography>
+
+                  <Typography
+                    variant="body2"
+                    color="text.secondary"
+                    sx={{ mb: 2 }}
+                  >
+                    {member.role}
+                  </Typography>
+
+                  <Typography
+                    variant="body2"
+                    color="text.secondary"
+                    sx={{
+                      lineHeight: 1.7,
+                      mb: 2,
+                    }}
+                  >
+                    {member.bio}
+                  </Typography>
+
+                  <Box
+                    sx={{
+                      display: "flex",
+                      flexWrap: "wrap",
+                      gap: 1,
+                      mb: 3,
+                    }}
+                  >
+                    {member.skills?.map((skill) => (
+                      <Typography
+                        key={skill}
+                        variant="caption"
+                        sx={{
+                          border: "1px solid",
+                          borderColor: "divider",
+                          borderRadius: 1,
+                          px: 1,
+                          py: 0.5,
+                        }}
+                      >
+                        {skill}
+                      </Typography>
+                    ))}
+                  </Box>
+
+                  <Box
+                    sx={{
+                      display: "flex",
+                      flexWrap: "wrap",
+                      gap: 1,
+                      mt: "auto",
+                    }}
+                  >
+                    {member.github && (
+                      <Button
+                        component={Link}
+                        href={member.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        size="small"
+                        startIcon={<GitHubIcon />}
+                      >
+                        GitHub
+                      </Button>
+                    )}
+
+                    {member.linkedin && (
+                      <Button
+                        component={Link}
+                        href={member.linkedin}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        size="small"
+                        startIcon={<LinkedInIcon />}
+                      >
+                        LinkedIn
+                      </Button>
+                    )}
+
+                    {member.cv && (
+                      <Button
+                        component={Link}
+                        href={member.cv}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        size="small"
+                        startIcon={<DescriptionIcon />}
+                      >
+                        CV
+                      </Button>
+                    )}
+                  </Box>
+                </CardContent>
+              </Card>
+            </Grid>
+          ))}
+        </Grid>
       </Container>
     </Box>
   );
