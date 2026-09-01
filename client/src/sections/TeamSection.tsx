@@ -16,16 +16,6 @@ import GitHubIcon from "@mui/icons-material/GitHub";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import DescriptionIcon from "@mui/icons-material/Description";
 
-interface TeamMember {
-  id: number | string;
-  name: string;
-  role: string;
-  bio: string;
-  skills: string[];
-  github?: string;
-  linkedin?: string;
-  cv?: string;
-}
 
 const TeamSection: React.FC = () => {
   const team = teamMembers;
