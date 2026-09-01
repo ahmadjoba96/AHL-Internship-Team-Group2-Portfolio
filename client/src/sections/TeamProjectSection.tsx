@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
+import { projects as projectsData } from "../data/staticData";
 import {
   Box,
   Button,
@@ -14,40 +15,13 @@ import {
 import GitHubIcon from "@mui/icons-material/GitHub";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 
-interface ProjectData {
-  id: number | string;
-  name: string;
-  description: string;
-  techStack: string[];
-  githubUrl?: string;
-  liveUrl?: string;
-}
 
 const TeamProjectSection: React.FC = () => {
-  const [loading, setLoading] = useState(true);
-  const [projects, setProjects] = useState<ProjectData[]>([]);
-  const [error, setError] = useState(false);
+  const loading = false;
+  const projects = projectsData;
+  const error = false;
 
-  useEffect(() => {
-    fetch(
-      `${import.meta.env.VITE_API_URL || "http://localhost:3000"}/api/projects`,
-    )
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error("Failed to fetch projects");
-        }
-        return res.json();
-      })
-      .then((data) => {
-        setProjects(data);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.error("Failed to fetch projects", err);
-        setError(true);
-        setLoading(false);
-      });
-  }, []);
+  // Removed API call, using static data directly
 
   return (
     <Box id="project" sx={{ py: { xs: 8, md: 12 } }}>

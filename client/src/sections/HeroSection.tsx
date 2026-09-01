@@ -136,7 +136,7 @@ const HeroSection: React.FC = () => {
             {[
               ["4", "Team Members"],
               ["1", "Shared Project"],
-              ["∞", "Lessons Learned"],
+              ["3", "Months of Internship"],
             ].map(([value, label]) => (
               <Box key={label}>
                 <Typography

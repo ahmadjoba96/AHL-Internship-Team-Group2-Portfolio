@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
+import { teamMembers } from "../data/staticData";
 import {
   Avatar,
   Box,
@@ -27,30 +28,11 @@ interface TeamMember {
 }
 
 const TeamSection: React.FC = () => {
-  const [team, setTeam] = useState<TeamMember[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
+  const team = teamMembers;
+  const loading = false;
+  const error = false;
 
-  useEffect(() => {
-    const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:3000";
-
-    fetch(`${apiUrl}/api/team`)
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error("Failed to fetch team");
-        }
-        return res.json();
-      })
-      .then((data) => {
-        setTeam(data);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.error("Failed to fetch team", err);
-        setError(true);
-        setLoading(false);
-      });
-  }, []);
+  // Removed API call, using static data directly
 
   return (
     <Box id="team" sx={{ py: { xs: 8, md: 12 } }}>
